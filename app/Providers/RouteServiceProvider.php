@@ -36,5 +36,9 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+        //Get article either by id or slug
+        Route::bind('article', function ($value) {
+            return \App\Models\Article::where('id', $value)->orWhere('slug', $value)->firstOrFail();
+        });
     }
 }
